@@ -1,20 +1,16 @@
-// /api/post-wisdom.js
-import * as openaiUtils from "../utils/openai.js";
+import { generateWisdom } from '../utils/openai.js';
+import { postToTwitter } from '../utils/twitter.js';
 
-console.log('openaiUtils exports:', openaiUtils);
-
-const handler = async (req, res) => {
+export default async function handler(req, res) {
   try {
-    if (typeof openaiUtils.generateWisdom !== 'function') {
-      throw new Error('generateWisdom function not found in openaiUtils exports');
-    }
-    const wisdom = await openaiUtils.generateWisdom();
-    res.status(200).json({ wisdom });
+    const content = await generateWisdom();
+    const tweet = await postToTwitter(content);
+    res.status(200).json({ success: true, tweet });
   } catch (error) {
-    console.error('Error generating wisdom:', error);
-    res.status(500).json({ error: error.message });
+    console.error('Error in /post-wisdom:', error);
+    res.status(500).json({ error: 'Something went wrong.' });
   }
-};
+}
 
-export default handler;
+
 
