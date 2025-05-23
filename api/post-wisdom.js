@@ -1,4 +1,6 @@
 // 📁 /api/post-wisdom.js
+import * as openaiUtils from "../utils/openai.js";
+console.log('openaiUtils keys:', Object.keys(openaiUtils));
 
 import { generateWisdom } from "../utils/openai.js";
 import { postToX } from "../utils/twitter.js";
