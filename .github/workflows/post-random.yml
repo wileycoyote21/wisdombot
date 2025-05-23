@@ -1,0 +1,18 @@
+name: Post Random Bot
+
+on:
+  schedule:
+    - cron: '0 10 * * *'
+    - cron: '0 16 * * *'
+    - cron: '0 22 * * *'
+
+jobs:
+  post-random:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call post-random endpoint
+        run: |
+          curl -X POST "https://amateur-oracle-bot.vercel.app/api/post-random" \
+            -H "Authorization: Bearer ${{ secrets.API_AUTH_TOKEN }}" \
+            -H "Content-Type: application/json"
