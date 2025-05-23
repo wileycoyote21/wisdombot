@@ -1,0 +1,16 @@
+{
+  "name": "amateur-oracle-bot",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "openai": "^4.6.0",
+    "twitter-api-v2": "^1.14.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}

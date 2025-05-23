@@ -1,0 +1,16 @@
+{
+  "crons": [
+    {
+      "path": "/api/post-wisdom",
+      "schedule": "0 14 * * *"
+    },
+    {
+      "path": "/api/post-prophecy",
+      "schedule": "0 17 * * *"
+    },
+    {
+      "path": "/api/post-snark",
+      "schedule": "0 21 * * *"
+    }
+  ]
+}
