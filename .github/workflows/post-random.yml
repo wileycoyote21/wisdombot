@@ -2,9 +2,9 @@ name: Post Random Bot
 
 on:
   schedule:
-    - cron: '0 10 * * *'
-    - cron: '0 16 * * *'
-    - cron: '0 22 * * *'
+    - cron: '13 * * * *'   # 8 AM EST
+    - cron: '19 * * * *'   # 2 PM EST
+    - cron: '1  * * * *'   # 8 PM EST (next day UTC)
 
 jobs:
   post-random:
@@ -16,3 +16,4 @@ jobs:
           curl -X POST "https://amateur-oracle-bot.vercel.app/api/post-random" \
             -H "Authorization: Bearer ${{ secrets.API_AUTH_TOKEN }}" \
             -H "Content-Type: application/json"
+
