@@ -1,11 +1,17 @@
-import postWisdom from './post-wisdom.js';
-import postProphecy from './post-prophecy.js';
-import postSnark from './post-snark.js';
-
-const handlers = [postWisdom, postProphecy, postSnark];
+import { generateWisdom, generateSnark, generateProphecy } from '../utils/openai.js';
+import { postToX } from '../utils/twitter.js';
 
 export default async function handler(req, res) {
-  const randomHandler = handlers[Math.floor(Math.random() * handlers.length)];
-  return randomHandler(req, res);
+  try {
+    const generators = [generateWisdom, generateSnark, generateProphecy];
+    const randomGenerator = generators[Math.floor(Math.random() * generators.length)];
+    const content = await randomGenerator();
+    const tweet = await postToX(content);
+    res.status(200).json({ success: true, tweet });
+  } catch (error) {
+    console.error('Error in /post-random:', error);
+    res.status(500).json({ error: 'Something went wrong.' });
+  }
 }
+
 
