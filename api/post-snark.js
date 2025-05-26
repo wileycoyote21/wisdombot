@@ -1,9 +1,20 @@
 import { generateSnark } from '../utils/openai.js';
 import { postToX } from '../utils/twitter.js';
 
+function stripQuotes(text) {
+  if (
+    (text.startsWith('"') && text.endsWith('"')) ||
+    (text.startsWith("'") && text.endsWith("'"))
+  ) {
+    return text.slice(1, -1);
+  }
+  return text;
+}
+
 export default async function handler(req, res) {
   try {
-    const content = await generateSnark();
+    const contentRaw = await generateSnark();
+    const content = stripQuotes(contentRaw);
     const tweet = await postToX(content);
     res.status(200).json({ success: true, tweet });
   } catch (error) {
@@ -11,6 +22,7 @@ export default async function handler(req, res) {
     res.status(500).json({ error: 'Something went wrong.' });
   }
 }
+
 
 
 
